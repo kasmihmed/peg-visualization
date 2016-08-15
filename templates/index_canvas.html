@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static "css/foundation.css" %}">
+<link rel="stylesheet" href="{% static "css/app.css" %}">
+<title>visulize your furniture</title>
+</head>
+<body>
+<script>
+	var gb_selected_furniture = '' ;
+	var gb_selected_peg = '' ;
+	var gb_min_furniture_slider = 0 ;
+	var gb_max_furniture_slider = 2 ;
+	var furnitures= [ {% for furniture in furnitures %}
+	{'name':'{{furniture.name}}',
+	 'path':'{{furniture.picture_path}}',
+	 'width': '{{furniture.width}}',
+	 'height' : '{{furniture.height}}',
+	 'peg_positions_x' : '{{furniture.peg_positions_x}}',
+	 'peg_positions_y' : '{{furniture.peg_positions_y}}'
+	},
+	{% endfor %}];
+
+	var pegs = [ {% for peg in pegs %}
+	{'name':'{{peg.name}}',
+	 'path':'{{peg.picture_path}}'	},
+	{% endfor %}];
+
+</script>
+	<div class="row" style="margin-bottom:10px;" id="furniture_slider">
+		<div class="large-1 medium-1 columns" id="slider_furniture_l">
+			<div class="slider-left-button">
+				<img src="{% static "img/slider_images/arrow_L.svg" %}" width="100px" style="float:left;margin-top:40px;">
+			</div>
+		</div>
+
+		{% for furniture in furnitures|slice:":3" %}
+	<div class="large-3 medium-3 {% if forloop.last %} last-slider-0 {% endif%} columns" style="margin-left:20px;"  onclick="draw_scene('{{furniture.name}}','furniture')">
+			<img class="thumbnail" src="{{furniture.picture_path}}" alt="{{furniture.name}}">
+		</div>
+	{% endfor %}
+		<div class="large-1 medium-1 columns" onclick="get_next_furnitures()">
+		<div class="slider-right-button">
+			<img src="{% static "img/slider_images/arrow_R.svg" width="100px" %}" style="float:right;margin-top:40px;">
+		</div>
+	</div>
+</div>
+
+	<div class="row">
+	<div class="large-8 medium-8 small-centered medium-centered large-centered columns" style="margin:auto;">
+	<canvas id="myCanvas" style="" width="840px" height="410px"></canvas>
+</div>
+</div>
+
+
+
+<div class="row" style="margin-bottom:10px;">
+	<div class="large-1 medium-1 columns">
+		<div class="slider-left-button">
+			<img src="{% static "img/slider_images/arrow_L.svg" %}" width="100px" style="float:left;">
+		</div>
+	</div>
+	{% for peg in pegs|slice:":8" %}
+		<div class="large-1 medium-1 columns" style="margin-left:20px;" onclick="draw_scene('{{peg.name}}','peg')">
+			<img class="thumbnail" src="{{peg.picture_path}}" alt="{{peg.name}}">
+		</div>
+		{% endfor %}
+	<div class="large-1 medium-1 columns">
+	<div class="slider-right-button">
+		<img src="{% static "img/slider_images/arrow_R.svg" %}" width="100px" style="float:right;">
+	</div>
+</div>
+
+</div>
+
+		<script src="{% static "js/canvas_script.js" %}"></script>
+    <script src="{% static "js/vendor/jquery.js" %}"></script>
+    <script src="{% static "js/vendor/what-input.js" %}"></script>
+    <script src="{% static "js/vendor/foundation.js" %}"></script>
+    <script src="{% static "js/app.js" %}"></script>
+    <script src="{% static "js/slider.js" %}"></script>
+</body>
+</html>
