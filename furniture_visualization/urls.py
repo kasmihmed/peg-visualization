@@ -20,6 +20,8 @@ from z_buffering import views as z_buffering_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^painter/algo/canvas/',z_buffering_views.get_painter_canvas, name="painter_canvas"),
-    url(r'^painter/algo/svg/', z_buffering_views.get_painter_svg, name="painter_svg"),
+    url(r'^painter/algo/canvas/$',z_buffering_views.get_painter_canvas, name="painter_canvas"),
+    url(r'^painter/algo/svg/$', z_buffering_views.get_painter_svg, name="painter_svg"),
+    url(r'z_buffer/algo/$',z_buffering_views.z_buffer,name="z_buffer_page"),
+    url(r'z_buffer/algo/furniture/(?P<furniture>.*)/peg/(?P<peg>.*)/$', z_buffering_views.create_visualisation, name="z_buffer_visualisation"),
 ]

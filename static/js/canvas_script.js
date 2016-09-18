@@ -72,10 +72,14 @@ function fill_pegs_canvas(peg_big_img_src) {
     left_peg_big_img.src = peg_big_img_src;
     right_peg_big_img.src = peg_big_img_src;
     left_peg_big_img.onload = function() {
+    var startTime = new Date().getTime();
         scaled_peg_dimensions = scale_photo('pegs', this);
         console.log(scaled_peg_dimensions);
         ctx.drawImage(left_peg_big_img, left_peg_pos[0], left_peg_pos[1], scaled_peg_dimensions[0], scaled_peg_dimensions[1]);
         left_peg_in_canvas = [left_peg_pos[0], left_peg_pos[1], scaled_peg_dimensions[0], scaled_peg_dimensions[1]];
+        var finishTime = new Date().getTime();
+        event_times.push(finishTime - startTime);
+        console.log('inside func time to show: '+String(finishTime - startTime))
 
     };
 

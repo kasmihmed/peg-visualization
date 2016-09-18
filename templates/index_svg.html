@@ -10,6 +10,13 @@
 </head>
 <body>
 <script>
+	var gb_selected_furniture = '' ;
+	var gb_selected_peg = '' ;
+	var gb_min_furniture_slider = 0 ;
+	var gb_max_furniture_slider = 2 ;
+	var gb_min_peg_slider = 0 ;
+	var gb_max_peg_slider = 7 ;
+	var event_times=[];
 	var furnitures= [ {% for furniture in furnitures %}
 	{'name':'{{furniture.name}}',
 	 'path':'{{furniture.picture_path}}',
@@ -26,8 +33,8 @@
 	{% endfor %}];
 
 </script>
-<div class="row" style="margin-bottom:10px;">
-		<div class="large-1 medium-1 columns">
+<div class="row" style="margin-bottom:10px;" id="furniture_slider">
+		<div class="large-1 medium-1 columns" onclick="get_previous_furnitures('svg')">
 			<div class="slider-left-button">
 
 				<img src="{% static "img/slider_images/arrow_L.svg" %}" width="100px" style="float:left;margin-top:40px;">
@@ -41,7 +48,7 @@
 	{% endfor %}
 
 
-	<div class="large-1 medium-1 columns">
+	<div class="large-1 medium-1 columns" onclick="get_next_furnitures('svg')">
 		<div class="slider-right-button">
 			<img src="{% static "img/slider_images/arrow_R.svg" width="100px" %}" style="float:right;margin-top:40px;">
 		</div>
@@ -64,8 +71,8 @@
 
 
 
-<div class="row" style="margin-bottom:10px;">
-	<div class="large-1 medium-1 columns">
+<div class="row" style="margin-bottom:10px;" id="peg_slider">
+	<div class="large-1 medium-1 columns" onclick="get_previous_pegs('svg')">
 		<div class="slider-left-button">
 			<img src="{% static "img/slider_images/arrow_L.svg" %}" width="100px" style="float:left;">
 		</div>
@@ -76,7 +83,7 @@
 	</div>
 	{% endfor %}
 
-	<div class="large-1 medium-1 columns">
+	<div class="large-1 medium-1 columns" onclick="get_next_pegs('svg')">
 	<div class="slider-right-button">
 		<img src="{% static "img/slider_images/arrow_R.svg" %}" width="100px" style="float:right;">
 	</div>
